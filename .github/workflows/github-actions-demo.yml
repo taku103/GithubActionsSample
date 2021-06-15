@@ -15,6 +15,7 @@ jobs:
       JWT_KEY_FILE: assets/server.key
       SCRATCH_USER_TWO: test-sapwh63savra@example.com
       REPO_NAME: GithubActionsSample
+      GITHUB_REF: ${github.ref}
     steps:
       - run: |
               echo 'sfdx cli install'
