@@ -31,8 +31,6 @@ jobs:
               openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
               echo 'sfdx auth in cli'
               sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
-              pwd
-              ls
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c --json
 
       # - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
