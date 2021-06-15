@@ -16,7 +16,6 @@ jobs:
       HUB_CONSUMER_KEY: 3MVG9Gdzj3taRxuN9gWELaSkAKOA7BxrJMtZf_HTIb0gYwUGsrZu.ivulmqc_7xwWf2n55G5GEUUlAwXYiIT8
       JWT_KEY_FILE: assets/server.key
       SCRATCH_USER_TWO: test-sapwh63savra@example.com
-      REPO_NAME: GithubActionsSample
     steps:
       - run: |
               echo 'sfdx cli install'
@@ -29,7 +28,7 @@ jobs:
               echo 'make hub key'
               cd tmp
               git clone https://github.com/taku103/GithubActionsSample.git
-              cd GithubActionsSample
+              cd ${{ github.repository }}
               ls
               openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
               echo 'sfdx auth in cli'
