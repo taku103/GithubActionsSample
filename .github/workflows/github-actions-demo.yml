@@ -28,6 +28,7 @@ jobs:
               echo 'make hub key'
               pwd
               cd ..
+              cd ..
               pwd
               ls
               openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
