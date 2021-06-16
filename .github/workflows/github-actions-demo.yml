@@ -41,7 +41,7 @@ jobs:
               echo 'SANDBOX DEPLOY'
               pwd
               ls
-              sfdx force:apex:test:run -l RunLocalTests -c -r json -u $SCRATCH_USER_TWO 
+              sfdx force:apex:test:run -l RunLocalTests -u $SCRATCH_USER_TWO 
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
       - name: merge into master
         if: github.event.pull_request.merged == true
