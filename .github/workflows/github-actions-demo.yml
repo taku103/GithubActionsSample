@@ -5,7 +5,7 @@ on:
   pull_request:
     branches:
       - master
-    types: [closed]
+    types: [closed, edited, opened]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
