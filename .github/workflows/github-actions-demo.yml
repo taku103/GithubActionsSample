@@ -3,8 +3,9 @@ on:
   pull_request:
     branches:
       - master
-  # pull_request:
-  #   types: [closed]
+  push:
+    branches:
+      - master
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
