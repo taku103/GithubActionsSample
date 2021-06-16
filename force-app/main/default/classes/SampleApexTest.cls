@@ -1,5 +1,5 @@
 @isTest
-public with sharing class SampleApexTest {
+public without sharing class SampleApexTest {
     @isTest static void testSampleDebug() {
         SampleApex.SystemDebugSampleClass();
     }
