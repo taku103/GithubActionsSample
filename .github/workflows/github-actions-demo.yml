@@ -34,5 +34,44 @@ jobs:
               openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
               echo 'sfdx auth in cli'
               sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
+              echo 'SANDBOX DEPLOY'
+              sfdx force:apex:test:run -c -u $SCRATCH_USER_TWO
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
+on:
+  pull_request:
+    branches:
+      - master
+    types: [closed]
 
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    env: 
+      DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+      DECRYPTION_KEY: B631F52AB46DEF247BDB89FFBC7AC276990F3D432D6C6F1AFAA11F69CB76C895
+      DECRYPTION_IV: ACBE63104EE72E110CF200B34B1506F6
+      HUB_CONSUMER_KEY: 3MVG9Gdzj3taRxuN9gWELaSkAKOA7BxrJMtZf_HTIb0gYwUGsrZu.ivulmqc_7xwWf2n55G5GEUUlAwXYiIT8
+      JWT_KEY_FILE: assets/server.key
+      PRODUCTION_USER: test-sapwh63savra@example.com
+      REPO_NAME: GithubActionsSample
+    if: github.event.pull_request.merged == true
+    steps: 
+      - run: |
+              echo 'sfdx cli install'
+              mkdir sfdx
+              wget -qO- $DX_CLI_URL | tar xJ -C sfdx --strip-components 1
+              ./sfdx/install
+              sfdx
+              mkdir tmp
+      - run: |
+              echo 'make hub key'
+              cd tmp
+              git clone https://github.com/taku103/GithubActionsSample.git
+              cd $REPO_NAME
+              echo "${BRANCH_NAME}"
+              git checkout $BRANCH_NAME
+              openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
+              echo 'sfdx auth in cli'
+              sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
+              echo 'PRODUCTION DEPLOY'
+              sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $PRODUCTION_USER -c 
