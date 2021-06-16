@@ -5,7 +5,6 @@ on:
       - master
 jobs:
   Explore-GitHub-Actions:
-    if: ${{github.base_ref == 'master'}}
     runs-on: ubuntu-latest
     env: 
       DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
@@ -38,7 +37,7 @@ jobs:
               openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
               echo 'sfdx auth in cli'
               sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
-              echo 'SANDBOX DEPLOY'
+              echo 'CHECK DEPLOY'
               pwd
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c --checkonly
       - name: merge into master
@@ -51,7 +50,6 @@ jobs:
               openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out assets/server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
               echo 'sfdx auth in cli'
               sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
-              echo 'SANDBOX DEPLOY'
+              echo 'PRODUCTION DEPLOY'
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
 
-              
