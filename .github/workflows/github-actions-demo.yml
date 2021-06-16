@@ -3,7 +3,6 @@ on:
   pull_request:
     branches:
       - master
-    types: [close]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
@@ -54,4 +53,3 @@ jobs:
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
 
 
-              
