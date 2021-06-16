@@ -53,5 +53,5 @@ jobs:
               echo 'sfdx auth in cli'
               sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
               echo 'PRODUCTION DEPLOY'
-              sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
+              sfdx force:source:deploy -p force-app/main/default -u $SCRATCH_USER_TWO
 
