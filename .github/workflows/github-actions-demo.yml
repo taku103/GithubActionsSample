@@ -31,7 +31,7 @@ jobs:
               cd tmp
               git clone https://github.com/taku103/GithubActionsSample.git
       - name: push head branch
-        if: github.event.pull_request.merged == false
+        if: github.event_name == 'pull_request'
         run: |
               cd tmp
               cd $REPO_NAME
@@ -43,7 +43,7 @@ jobs:
               echo 'CHECK DEPLOY'
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c --checkonly
       - name: merge into master
-        if: github.event.pull_request.merged == true
+        if: github.event_name == 'push'
         run: |
               cd tmp
               cd $REPO_NAME
