@@ -5,7 +5,6 @@ on:
       - master
 jobs:
   Explore-GitHub-Actions:
-    if: ${{github.base_ref == 'master'}}
     runs-on: ubuntu-latest
     env: 
       DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
@@ -54,4 +53,3 @@ jobs:
               echo 'SANDBOX DEPLOY'
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
 
-              
