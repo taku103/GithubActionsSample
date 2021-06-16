@@ -40,7 +40,7 @@ jobs:
               sfdx auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile $JWT_KEY_FILE --username $SCRATCH_USER_TWO -a hub -r https://test.salesforce.com
               echo 'SANDBOX DEPLOY'
               pwd
-              sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c --testonly
+              sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c --checkonly
       - name: merge into master
         if: github.event.pull_request.merged == true
         run: |
