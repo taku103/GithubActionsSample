@@ -42,7 +42,8 @@ jobs:
               sfdx force:apex:test:run -c -u $SCRATCH_USER_TWO
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
       - name: merge into master
-              if: github.event.pull_request.merged == true
+        if: github.event.pull_request.merged == true
+        run: |
               cd tmp
               cd $REPO_NAME
               echo "${BRANCH_NAME}"
