@@ -37,6 +37,7 @@ jobs:
               echo 'SANDBOX DEPLOY'
               sfdx force:apex:test:run -c -u $SCRATCH_USER_TWO
               sfdx force:source:deploy -p force-app/main/default -l RunLocalTests -u $SCRATCH_USER_TWO -c 
+name: Merge Demo
 on:
   pull_request:
     branches:
